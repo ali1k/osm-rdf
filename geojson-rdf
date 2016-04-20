@@ -22,12 +22,12 @@ function processor(node) {
         //console.log(counter + ':');
         output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
         output =  output + 'geoV:ISO "' + country + '" ; ';
-        output =  output + 'dcterms:title "' + node.properties.name + '" ; ';
+        output =  output + 'dcterms:title """' + node.properties.name + '""" ; ';
         if(node.properties.admin_level){
             output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
         }
         if(node.properties.source){
-            output =  output + 'geoV:source "'+node.properties.source+'" ; ';
+            output =  output + 'geoV:source """'+node.properties.source+'""" ; ';
         }
         if(node.properties.wikipedia){
             output =  output + 'geoV:dbpedia <' + wikiToDB(node.properties.wikipedia) + '> ; ';
@@ -51,19 +51,19 @@ function processor(node) {
             output =  output + 'geoV:refNUTS "' + node.properties['ref:NUTS']+ '" ; ';
         }
         if(node.properties['loc_name']){
-            output =  output + 'geoV:locName "' + node.properties['loc_name']+ '" ; ';
+            output =  output + 'geoV:locName """' + node.properties['loc_name']+ '""" ; ';
         }
         if(node.properties['old_name']){
-            output =  output + 'geoV:oldName "' + node.properties['old_name']+ '" ; ';
+            output =  output + 'geoV:oldName """' + node.properties['old_name']+ '""" ; ';
         }
         if(node.properties['note']){
-            output =  output + 'geoV:note "' + node.properties['note']+ '" ; ';
+            output =  output + 'geoV:note """' + node.properties['note']+ '""" ; ';
         }
         if(node.properties['population']){
             output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
         }
         if(node.properties['website']){
-            output =  output + 'foaf:page "' + node.properties['website']+ '" ; ';
+            output =  output + 'foaf:page <' + node.properties['website']+ '> ; ';
         }
         //console.log(node.properties.CODE_of_fu);
         //console.log(node.properties.CLASS);
