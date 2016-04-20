@@ -116,9 +116,9 @@ function wikiToDB(str) {
     var tmp = str.split(':');
     var out = '';
     if(tmp.length < 2 || tmp[0]== 'en'){
-        out = 'http://dbpedia.org/resource/' + tmp[1];
+        out = 'http://dbpedia.org/resource/' + encodeURIComponent(tmp[1]);
     }else{
-        out = 'http://'+tmp[0]+'.dbpedia.org/resource/' + tmp[1];
+        out = 'http://'+tmp[0]+'.dbpedia.org/resource/' + encodeURIComponent(tmp[1]);
     }
     return out;
 }
