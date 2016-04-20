@@ -1,0 +1,21 @@
+{
+  "name": "osm-rdf",
+  "version": "1.0.0",
+  "description": "Scripts to convert OSM data to RDF",
+  "keywords": [
+    "json",
+    "rdf",
+    "conversion"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "./test"
+  },
+  "dependencies": {
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "lodash": "^4.6.1"
+  },
+  "author": "Ali Khalili <hyperir@gmail.com> (http://ali1k.com)",
+  "license": "ISC"
+}

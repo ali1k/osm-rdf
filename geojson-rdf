@@ -1,0 +1,101 @@
+#!/usr/bin/env node
+if (process.argv.length < 4 || process.argv.length > 5) {
+  die('OSM geojson to RDF\n' +
+      'converts a list of OSM administrative areas' +
+      'to RDF TTL Format.\n\n' +
+      'usage: geojson-rdf [country] [file_or_uri_to_convert]');
+}
+var fs = require ('fs');
+var http = require ('http');
+var _ = require("lodash");
+
+var country = process.argv[2], source = process.argv[3];
+// Open HTTP stream if the source is a URL
+if (source.match(/^https?:\/\//))
+    http.request(source, processor).end();
+// Open a file stream otherwise
+else
+    processor(fs.readFileSync(source,'utf8'));
+
+
+/* Process the specified input */
+function processor(input) {
+    var currentObj = JSON.parse(input);
+    var prefixes = '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . @prefix edm: <http://www.europeana.eu/schemas/edm/> . @prefix foaf: <http://xmlns.com/foaf/0.1/> . @prefix owl: <http://www.w3.org/2002/07/owl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . @prefix skos: <http://www.w3.org/2004/02/skos/core#> . @prefix dcterms: <http://purl.org/dc/terms/> . @prefix geoV: <http://geo.risis.eu/vocabulary/osm/> . @prefix geoR: <http://geo.risis.eu/osm/> .';
+    console.log(prefixes);
+    var output = '';
+    _.forEach(currentObj.features, function(node, i) {
+        //console.log(counter + ':');
+        output =  'geoR:' + node.properties.id + ' a geoV:AdministrativeArea ; ';
+        output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
+        output =  output + 'geoV:ISO "' + country + '" ; ';
+        output =  output + 'dcterms:title "' + node.properties.name + '" ; ';
+        if(node.properties.wikipedia){
+            output =  output + 'geoV:dbpedia <' + wikiToDB(node.properties.wikipedia) + '> ; ';
+        }
+        if(node.properties.wikidata){
+            output =  output + 'geoV:wikidata <http://www.wikidata.org/entity/' + node.properties.wikidata + '> ; ';
+        }
+        if(node.properties.timestamp){
+            output =  output + 'geoV:timestamp "' + node.properties.timestamp+ '" ; ';
+        }
+        if(node.properties.authoritative){
+            output =  output + 'geoV:isAuthoritative "' + node.properties.authoritative+ '" ; ';
+        }
+        if(node.properties['addr:postcode']){
+            output =  output + 'geoV:postCode "' + node.properties['addr:postcode']+ '" ; ';
+        }
+        if(node.properties['addr:ref:INS']){
+            output =  output + 'geoV:refINS "' + node.properties['addr:ref:INS']+ '" ; ';
+        }
+        if(node.properties['loc_name']){
+            output =  output + 'geoV:locName "' + node.properties['loc_name']+ '" ; ';
+        }
+        if(node.properties['population']){
+            output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
+        }
+        if(node.properties['website']){
+            output =  output + 'foaf:page "' + node.properties['website']+ '" ; ';
+        }
+        //console.log(node.properties.CODE_of_fu);
+        //console.log(node.properties.CLASS);
+        var pType = node.geometry.type;
+        //console.log(pType);
+        output =  output + 'geoV:shapeType "' + pType+ '" ; ';
+        if(pType === 'Polygon'){
+            var tmpp = [];
+            _.forEach(node.geometry.coordinates[0], function(coordinate, ii) {
+                tmpp.push(coordinate.join(' '));
+            });
+            output =  output + 'geo:geometry "POLYGON((' + tmpp.join(',') + '))"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
+            //console.log('POLYGON((' + tmpp.join(',') + '))');
+        } else if(pType === 'MultiPolygon'){
+            var tmppTop = [];
+            _.forEach(node.geometry.coordinates, function(coordinateset, ii) {
+                var tmpp = [];
+                _.forEach(coordinateset[0], function(coordinate, iii) {
+                    tmpp.push(coordinate.join(' '));
+                });
+                tmppTop.push('((' + tmpp.join(',') + '))');
+            });
+            output =  output + 'geo:geometry "MULTIPOLYGON(' + tmppTop.join(',') + ')"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
+            //console.log('MULTIPOLYGON(' + tmppTop.join(',') + ')');
+        }
+        console.log(output);
+    });
+}
+/* Halt execution with an error message. */
+function die(message) {
+  console.log(message);
+  process.exit(1);
+}
+function wikiToDB(str) {
+    var tmp = str.split(':');
+    var out = '';
+    if(tmp.length < 2 || tmp[0]== 'en'){
+        out = 'http://dbpedia.org/resource/' + tmp[1];
+    }else{
+        out = 'http://'+tmp[0]+'.dbpedia.org/resource/' + tmp[1];
+    }
+    return out;
+}
