@@ -19,77 +19,80 @@ var getStream = function (source) {
 };
 /* Process the specified input */
 function processor(node) {
-        //console.log(counter + ':');
-        output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
-        output =  output + 'geoV:ISO "' + country + '" ; ';
-        output =  output + 'dcterms:title """' + node.properties.name + '""" ; ';
-        if(node.properties.admin_level){
-            output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
-        }
-        if(node.properties.source){
-            output =  output + 'geoV:source """'+node.properties.source+'""" ; ';
-        }
-        if(node.properties.wikipedia){
-            output =  output + 'geoV:dbpedia <' + wikiToDB(node.properties.wikipedia) + '> ; ';
-        }
-        if(node.properties.wikidata){
-            output =  output + 'geoV:wikidata <http://www.wikidata.org/entity/' + node.properties.wikidata + '> ; ';
-        }
-        if(node.properties.timestamp){
-            output =  output + 'geoV:timestamp "' + node.properties.timestamp+ '" ; ';
-        }
-        if(node.properties.authoritative){
-            output =  output + 'geoV:isAuthoritative "' + node.properties.authoritative+ '" ; ';
-        }
-        if(node.properties['addr:postcode']){
-            output =  output + 'geoV:postCode "' + node.properties['addr:postcode']+ '" ; ';
-        }
-        if(node.properties['ref:INS']){
-            output =  output + 'geoV:refINS "' + node.properties['ref:INS']+ '" ; ';
-        }
-        if(node.properties['ref:NUTS']){
-            output =  output + 'geoV:refNUTS "' + node.properties['ref:NUTS']+ '" ; ';
-        }
-        if(node.properties['loc_name']){
-            output =  output + 'geoV:locName """' + node.properties['loc_name']+ '""" ; ';
-        }
-        if(node.properties['old_name']){
-            output =  output + 'geoV:oldName """' + node.properties['old_name']+ '""" ; ';
-        }
-        if(node.properties['note']){
-            output =  output + 'geoV:note """' + node.properties['note']+ '""" ; ';
-        }
-        if(node.properties['population']){
-            output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
-        }
-        if(node.properties['website']){
-            output =  output + 'foaf:page <' + node.properties['website']+ '> ; ';
-        }
-        //console.log(node.properties.CODE_of_fu);
-        //console.log(node.properties.CLASS);
         var pType = node.geometry.type;
-        //console.log(pType);
-        output =  output + 'geoV:shapeType "' + pType+ '" ; ';
-        if(pType === 'Polygon'){
-            var tmpp = [];
-            _.forEach(node.geometry.coordinates[0], function(coordinate, ii) {
-                tmpp.push(coordinate.join(' '));
-            });
-            output =  output + 'geo:geometry "POLYGON((' + tmpp.join(',') + '))"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
-            //console.log('POLYGON((' + tmpp.join(',') + '))');
-        } else if(pType === 'MultiPolygon'){
-            var tmppTop = [];
-            _.forEach(node.geometry.coordinates, function(coordinateset, ii) {
+        //ignore all the other details
+        if(pType === 'Polygon' || pType === 'MultiPolygon'){
+            //console.log(counter + ':');
+            output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
+            output =  output + 'geoV:ISO "' + country + '" ; ';
+            output =  output + 'dcterms:title """' + node.properties.name + '""" ; ';
+            if(node.properties.admin_level){
+                output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
+            }
+            if(node.properties.source){
+                output =  output + 'geoV:source """'+node.properties.source+'""" ; ';
+            }
+            if(node.properties.wikipedia){
+                output =  output + 'geoV:dbpedia <' + wikiToDB(node.properties.wikipedia) + '> ; ';
+            }
+            if(node.properties.wikidata){
+                output =  output + 'geoV:wikidata <http://www.wikidata.org/entity/' + node.properties.wikidata + '> ; ';
+            }
+            if(node.properties.timestamp){
+                output =  output + 'geoV:timestamp "' + node.properties.timestamp+ '" ; ';
+            }
+            if(node.properties.authoritative){
+                output =  output + 'geoV:isAuthoritative "' + node.properties.authoritative+ '" ; ';
+            }
+            if(node.properties['addr:postcode']){
+                output =  output + 'geoV:postCode "' + node.properties['addr:postcode']+ '" ; ';
+            }
+            if(node.properties['ref:INS']){
+                output =  output + 'geoV:refINS "' + node.properties['ref:INS']+ '" ; ';
+            }
+            if(node.properties['ref:NUTS']){
+                output =  output + 'geoV:refNUTS "' + node.properties['ref:NUTS']+ '" ; ';
+            }
+            if(node.properties['loc_name']){
+                output =  output + 'geoV:locName """' + node.properties['loc_name']+ '""" ; ';
+            }
+            if(node.properties['old_name']){
+                output =  output + 'geoV:oldName """' + node.properties['old_name']+ '""" ; ';
+            }
+            if(node.properties['note']){
+                output =  output + 'geoV:note """' + node.properties['note']+ '""" ; ';
+            }
+            if(node.properties['population']){
+                output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
+            }
+            if(node.properties['website']){
+                output =  output + 'foaf:page <' + node.properties['website']+ '> ; ';
+            }
+            //console.log(node.properties.CODE_of_fu);
+            //console.log(node.properties.CLASS);
+            //console.log(pType);
+            output =  output + 'geoV:shapeType "' + pType+ '" ; ';
+            if(pType === 'Polygon'){
                 var tmpp = [];
-                _.forEach(coordinateset[0], function(coordinate, iii) {
+                _.forEach(node.geometry.coordinates[0], function(coordinate, ii) {
                     tmpp.push(coordinate.join(' '));
                 });
-                tmppTop.push('((' + tmpp.join(',') + '))');
-            });
-            output =  output + 'geo:geometry "MULTIPOLYGON(' + tmppTop.join(',') + ')"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
-            //console.log('MULTIPOLYGON(' + tmppTop.join(',') + ')');
+                output =  output + 'geo:geometry "POLYGON((' + tmpp.join(',') + '))"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
+                //console.log('POLYGON((' + tmpp.join(',') + '))');
+            } else if(pType === 'MultiPolygon'){
+                var tmppTop = [];
+                _.forEach(node.geometry.coordinates, function(coordinateset, ii) {
+                    var tmpp = [];
+                    _.forEach(coordinateset[0], function(coordinate, iii) {
+                        tmpp.push(coordinate.join(' '));
+                    });
+                    tmppTop.push('((' + tmpp.join(',') + '))');
+                });
+                output =  output + 'geo:geometry "MULTIPOLYGON(' + tmppTop.join(',') + ')"^^<http://www.openlinksw.com/schemas/virtrdf#Geometry> .';
+                //console.log('MULTIPOLYGON(' + tmppTop.join(',') + ')');
+            }
+            console.log(output);
         }
-        console.log(output);
 }
 
 // Open HTTP stream if the source is a URL
