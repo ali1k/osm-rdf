@@ -20,7 +20,7 @@ var getStream = function (source) {
 /* Process the specified input */
 function processor(node) {
         //console.log(counter + ':');
-        output =  'geoR:' + node.properties.id + ' a geoV:AdministrativeArea ; ';
+        output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
         output =  output + 'geoV:ISO "' + country + '" ; ';
         output =  output + 'dcterms:title "' + node.properties.name + '" ; ';
         if(node.properties.admin_level){
