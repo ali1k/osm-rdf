@@ -27,9 +27,14 @@ function processor(input) {
     _.forEach(currentObj.features, function(node, i) {
         //console.log(counter + ':');
         output =  'geoR:' + node.properties.id + ' a geoV:AdministrativeArea ; ';
-        output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
         output =  output + 'geoV:ISO "' + country + '" ; ';
         output =  output + 'dcterms:title "' + node.properties.name + '" ; ';
+        if(node.properties.admin_level){
+            output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
+        }
+        if(node.properties.source){
+            output =  output + 'geoV:source "'+node.properties.source+'" ; ';
+        }
         if(node.properties.wikipedia){
             output =  output + 'geoV:dbpedia <' + wikiToDB(node.properties.wikipedia) + '> ; ';
         }
@@ -45,11 +50,20 @@ function processor(input) {
         if(node.properties['addr:postcode']){
             output =  output + 'geoV:postCode "' + node.properties['addr:postcode']+ '" ; ';
         }
-        if(node.properties['addr:ref:INS']){
-            output =  output + 'geoV:refINS "' + node.properties['addr:ref:INS']+ '" ; ';
+        if(node.properties['ref:INS']){
+            output =  output + 'geoV:refINS "' + node.properties['ref:INS']+ '" ; ';
+        }
+        if(node.properties['ref:NUTS']){
+            output =  output + 'geoV:refNUTS "' + node.properties['ref:NUTS']+ '" ; ';
         }
         if(node.properties['loc_name']){
             output =  output + 'geoV:locName "' + node.properties['loc_name']+ '" ; ';
+        }
+        if(node.properties['old_name']){
+            output =  output + 'geoV:oldName "' + node.properties['old_name']+ '" ; ';
+        }
+        if(node.properties['note']){
+            output =  output + 'geoV:note "' + node.properties['note']+ '" ; ';
         }
         if(node.properties['population']){
             output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
