@@ -24,7 +24,11 @@ function processor(node) {
         if(pType === 'Polygon' || pType === 'MultiPolygon'){
             //console.log(counter + ':');
             output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
-            output =  output + 'geoV:ISO "' + country + '" ; ';
+            if(node.properties['ISO3166-1:alpha3']){
+                output =  output + 'geoV:ISO "' + node.properties['ISO3166-1:alpha3']+ '" ; ';
+            }else{
+                output =  output + 'geoV:ISO "' + country + '" ; ';
+            }
             output =  output + 'dcterms:title """' + node.properties.name + '""" ; ';
             if(node.properties.admin_level){
                 output =  output + 'geoV:level "'+node.properties.admin_level+'"^^xsd:integer ; ';
