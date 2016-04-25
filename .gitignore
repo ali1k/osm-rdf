@@ -1,6 +1,8 @@
 node_modules
 bower_components
 build
+data/pbf
+data/osmosis
 samples
 *.log
 test.js
