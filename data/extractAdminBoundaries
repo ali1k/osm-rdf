@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Extracts administrative boundaries from the downloaded shape files
+
+#create boundaries directory if not exist
+mkdir -p boundaries
+
+#temp folder which can be removed later
+mkdir -p tmp
+
+#maximum RAM for JAVA process
+maxRAM="10G"
+#source folder
+source="./pbf"
+#destination folder
+dest="./boundaries"
+
+for f in "$source"/*.pbf; do
+  filename=$(basename "$f")
+  extension="${filename##*.}"
+  echo "slicing \"$f\" ...";
+  #JAVA options can be added here for performance optimization
+  # e.g. JAVACMD_OPTIONS="-Xmx3G -Djava.io.tmpdir=/scratch/risis/data/tmp"
+  ./osmosis/bin/osmosis --read-pbf file="$f" --tf accept-ways boundary=administrative --used-node --write-xml "$dest/$filename"
+
+  echo "done...slice available at $dest/$filename";
+done

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Converts OSM administrative boundaries to GeoJSON shape files
+
+#create geojson directory if not exist
+mkdir -p geojson
+
+#installl osmtogeojson globally
+npm install osmtogeojson -g
+
+#maximum RAM for Node process
+maxRAM="10000"
+#source folder
+source="./boundaries"
+#destination folder
+dest="./geojson"
+
+for f in "$source"/*.pbf; do
+  filename=$(basename "$f")
+  extension="${filename##*.}"
+  echo " converting \"$f\" to GeoJSON...";
+
+  node --max_old_space_size="$maxRAM" `which osmtogeojson` "$f" > "$dest/$filename.geojson"
+
+  echo " done... GeoJSON available at $dest/$filename.geojson";
+done

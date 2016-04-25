@@ -3,6 +3,9 @@ bower_components
 build
 data/pbf
 data/osmosis
+data/boundaries
+data/geojson
+data/tmp
 samples
 *.log
 test.js
