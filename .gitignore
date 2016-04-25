@@ -5,6 +5,7 @@ data/pbf
 data/osmosis
 data/boundaries
 data/geojson
+data/rdf
 data/tmp
 samples
 *.log

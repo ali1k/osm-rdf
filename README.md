@@ -13,7 +13,7 @@ NodeJS and JAVA
     - run `./installOSMOSIS` bash script to install OSMOSIS for processing OSM data.
     - run `./extractAdminBoundaries` bash script to process and extract administrative boundaries from the data.
     - run `./convertOSMtoGeoJSON` bash script to convert the extracted data to GeoJSON format.
-    - run `geojson-rdf [level] [file_or_uri_to_convert]`
+    - run `./convertGeoJSONtoRDF` bash script to convert the GeoJSON files to RDF.
 
 ## Usage
 

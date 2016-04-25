@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Converts OSM GeoJSON shape files to RDF
+
+#create geojson directory if not exist
+mkdir -p rdf
+
+#source folder
+source="./geojson"
+#destination folder
+dest="./rdf"
+
+for f in "$source"/*.geojson; do
+  filename=$(basename "$f")
+  extension="${filename##*.}"
+  echo " converting \"$f\" to RDF...";
+
+  ../geojson-rdf AUTO "$f" > "$dest/$filename.ttl"
+
+  echo " done... RDF available at $dest/$filename.ttl";
+done
