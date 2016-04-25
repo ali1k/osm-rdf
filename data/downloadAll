@@ -1,0 +1,202 @@
+#!/bin/bash
+
+# Downloads all OpenStreetMap shape files
+
+#create a pbf directory if not exist
+mkdir -p pbf
+
+#africa
+wget -P pbf http://download.geofabrik.de/africa/benin-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/botswana-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/burkina-faso-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/cameroon-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/canary-islands-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/chad-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/congo-democratic-republic-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/egypt-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/ethiopia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/guinea-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/guinea-bissau-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/ivory-coast-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/kenya-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/lesotho-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/liberia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/libya-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/madagascar-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/mali-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/morocco-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/namibia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/niger-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/nigeria-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/sierra-leone-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/somalia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/south-africa-and-lesotho-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/africa/tanzania-latest.osm.pbf
+
+#asia
+wget -P pbf http://download.geofabrik.de/asia/afghanistan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/azerbaijan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/bangladesh-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/cambodia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/china-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/gcc-states-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/india-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/indonesia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/iran-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/iraq-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/israel-and-palestine-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/japan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/jordan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/kazakhstan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/kyrgyzstan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/lebanon-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/malaysia-singapore-brunei-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/maldives-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/mongolia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/nepal-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/north-korea-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/pakistan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/philippines-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/russia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/south-korea-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/sri-lanka-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/syria-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/taiwan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/tajikistan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/thailand-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/turkmenistan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/uzbekistan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/vietnam-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/asia/yemen-latest.osm.pbf
+
+#australia
+wget -P pbf http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/australia-oceania/fiji-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/australia-oceania/new-caledonia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/australia-oceania/new-zealand-latest.osm.pbf
+
+#central-america
+wget -P pbf http://download.geofabrik.de/central-america/belize-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/central-america/cuba-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/central-america/guatemala-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/central-america/haiti-and-domrep-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/central-america/nicaragua-latest.osm.pbf
+
+#europe
+wget -P pbf http://download.geofabrik.de/europe/albania-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/andorra-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/austria-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/azores-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/belarus-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/belgium-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/bosnia-herzegovina-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/bulgaria-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/croatia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/cyprus-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/czech-republic-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/denmark-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/estonia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/faroe-islands-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/finland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/france-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/georgia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/germany-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/great-britain-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/greece-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/hungary-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/iceland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/isle-of-man-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/italy-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/kosovo-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/latvia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/liechtenstein-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/lithuania-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/macedonia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/malta-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/moldova-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/monaco-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/montenegro-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/netherlands-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/norway-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/poland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/portugal-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/romania-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/russia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/serbia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/slovakia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/slovenia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/spain-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/sweden-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/switzerland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/turkey-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/europe/ukraine-latest.osm.pbf
+
+#north-america
+wget -P pbf http://download.geofabrik.de/north-america/canada-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/greenland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/mexico-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/alabama-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/alaska-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/arizona-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/arkansas-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/california-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/colorado-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/connecticut-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/district-of-columbia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/florida-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/georgia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/hawaii-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/idaho-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/illinois-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/indiana-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/iowa-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/kansas-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/kentucky-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/louisiana-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/maine-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/maryland-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/massachusetts-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/michigan-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/minnesota-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/mississippi-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/missouri-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/montana-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/nebraska-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/nevada-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/new-hampshire-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/new-jersey-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/new-mexico-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/new-york-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/north-carolina-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/north-dakota-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/ohio-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/oklahoma-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/oregon-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/pennsylvania-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/rhode-island-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/south-carolina-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/south-dakota-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/tennessee-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/texas-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/utah-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/vermont-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/virginia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/washington-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/west-virginia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/wisconsin-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/north-america/us/wyoming-latest.osm.pbf
+
+#south-america
+wget -P pbf http://download.geofabrik.de/south-america/argentina-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/bolivia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/brazil-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/chile-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/colombia-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/ecuador-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/paraguay-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/peru-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/suriname-latest.osm.pbf
+wget -P pbf http://download.geofabrik.de/south-america/uruguay-latest.osm.pbf
