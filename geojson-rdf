@@ -1,17 +1,61 @@
 #!/usr/bin/env node
+var countries = require('./countries');
+var usStates = require('./usStates');
+
 if (process.argv.length < 4 || process.argv.length > 5) {
   die('OSM geojson to RDF\n' +
       'converts a list of OSM administrative areas' +
       'to RDF TTL Format.\n\n' +
       'usage: geojson-rdf [country] [file_or_uri_to_convert]');
 }
+var country = process.argv[2], source = process.argv[3];
 var fs = require ('fs');
 var http = require ('http');
 var _ = require("lodash");
 var JSONStream = require('JSONStream');
 var es = require('event-stream');
 
-var country = process.argv[2], source = process.argv[3];
+checkUSState = function(str){
+    var out=0;
+    usStates.listOfStates.forEach((row)=>{
+        if(row['name'].toLowerCase() == str){
+            out = row['abbreviation'];
+            return out;
+        }
+    });
+    return out;
+}
+convertInputToISO3 = function() {
+    var inputCountry = country.toLowerCase();
+    //in this case we have to automatically detect country name from the file name
+    if(inputCountry == 'auto'){
+        inputCountry = source.toLowerCase().replace('-latest.osm.pbf.geojson','');
+        var tmp = inputCountry.split('\/');
+        if(tmp.length){
+            inputCountry = tmp[tmp.length-1];
+        }
+        inputCountry = inputCountry.replace('-',' ');
+    }
+    var out = inputCountry;
+    if(country.length == 3){
+        return out;
+    }else if(country.length == 2){
+        countries.listOfCountries.forEach((row)=>{
+            if(row['alpha-2'].toLowerCase() == country){
+                out = row['alpha-3'];
+                return out;
+            }
+        });
+    }else{
+        countries.listOfCountries.forEach((row)=>{
+            if(row['name'].toLowerCase() == inputCountry){
+                out = row['alpha-3'];
+                return out;
+            }
+        });
+    }
+    return out;
+}
 var getStream = function (source) {
     var stream = fs.createReadStream(source, {encoding: 'utf8'}),
     parser = JSONStream.parse('features');
@@ -24,10 +68,35 @@ function processor(node) {
         if(pType === 'Polygon' || pType === 'MultiPolygon'){
             //console.log(counter + ':');
             output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
+            //if we already have the country in data, we use that one instead of the one inserted by user
             if(node.properties['ISO3166-1:alpha3']){
                 output =  output + 'geoV:ISO "' + node.properties['ISO3166-1:alpha3']+ '" ; ';
             }else{
-                output =  output + 'geoV:ISO "' + country + '" ; ';
+                var tmpCountry = convertInputToISO3();
+                var usState = checkUSState(tmpCountry);
+                //for some specific country groups, we have to add multiple countries as well!
+                if(tmpCountry == 'gcc states'){
+                    output =  output + 'geoV:ISO "BHR", "KWT", "OMN", "QAT", "SAU", "ARE" ; ';
+                }else if (tmpCountry == 'israel and palestine'){
+                    output =  output + 'geoV:ISO "ISR", "PSE" ; ';
+                }else if (tmpCountry == 'ireland and northern ireland'){
+                    output =  output + 'geoV:ISO "IRL", "GBR" ; ';
+                }else if (tmpCountry == 'district of columbia'){
+                    output =  output + 'geoV:ISO "COL" ; ';
+                }else if (tmpCountry == 'malaysia singapore brunei'){
+                    output =  output + 'geoV:ISO "MYS", "SGP", "BRN" ; ';
+                }else if (tmpCountry == 'north korea'){
+                    output =  output + 'geoV:ISO "PRK"; ';
+                }else if (tmpCountry == 'south korea'){
+                    output =  output + 'geoV:ISO "KOR"; ';
+                }else if (usState){
+                    output =  output + 'geoV:ISO "USA"; ';
+                    output =  output + 'schema:State "'+usState+'"; ';
+                }else if (tmpCountry == 'south africa and lesotho'){
+                    output =  output + 'geoV:ISO "ZAF"; ';
+                }else{
+                    output =  output + 'geoV:ISO "' + tmpCountry + '" ; ';
+                }
             }
             output =  output + 'dcterms:title """' + node.properties.name + '""" ; ';
             if(node.properties.admin_level){
@@ -104,7 +173,7 @@ if (source.match(/^https?:\/\//))
     http.request(source, processor).end();
 // Open a file stream otherwise
 else {
-    var prefixes = '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . @prefix edm: <http://www.europeana.eu/schemas/edm/> . @prefix foaf: <http://xmlns.com/foaf/0.1/> . @prefix owl: <http://www.w3.org/2002/07/owl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . @prefix skos: <http://www.w3.org/2004/02/skos/core#> . @prefix dcterms: <http://purl.org/dc/terms/> . @prefix geoV: <http://geo.risis.eu/vocabulary/osm/> . @prefix geoR: <http://geo.risis.eu/osm/> .';
+    var prefixes = '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . @prefix edm: <http://www.europeana.eu/schemas/edm/> . @prefix foaf: <http://xmlns.com/foaf/0.1/> . @prefix schema: <http://schema.org/> . @prefix owl: <http://www.w3.org/2002/07/owl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . @prefix skos: <http://www.w3.org/2004/02/skos/core#> . @prefix dcterms: <http://purl.org/dc/terms/> . @prefix geoV: <http://geo.risis.eu/vocabulary/osm/> . @prefix geoR: <http://geo.risis.eu/osm/> .';
     console.log(prefixes);
     getStream(source)
      .pipe(es.mapSync(function (data) {
