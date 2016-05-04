@@ -37,11 +37,11 @@ convertInputToISO3 = function() {
         inputCountry = inputCountry.replace('-',' ');
     }
     var out = inputCountry;
-    if(country.length == 3){
+    if(inputCountry.length == 3){
         return out;
-    }else if(country.length == 2){
+    }else if(inputCountry.length == 2){
         countries.listOfCountries.forEach((row)=>{
-            if(row['alpha-2'].toLowerCase() == country){
+            if(row['alpha-2'].toLowerCase() == inputCountry){
                 out = row['alpha-3'];
                 return out;
             }
