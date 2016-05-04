@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+var countries = require('./countries');
+
+convertInputToISO3 = function(country) {
+    var inputCountry = country.toLowerCase().trim();
+    var predefined = {'aland islands': 'ALA', 'macau': 'MAC', 'the bahamas': 'BHS', 'bolivia': 'BOL', 'brunei': 'BRN', 'democratic republic of congo': 'COD', 'cape verde': 'CPV', 'falkland islands': 'FLK', 'federated states of micronesia': 'FSM', 'the gambia': 'GMB', 'ivory coast': 'CIV', 'north korea': 'PRK', 'south korea': 'KOR', 'macedonia': 'MKD', 'netherlands antilles': 'ANT', 'pitcairn islands': 'PCN', 'spratly islands': 'Spratly Islands', 'russia': 'RUS', 'saint helena': 'SHN', 'st. lucia': 'LCA', 'east timor': 'TLS', 'taiwan': 'TWN', 'tanzania': 'TZA', 'united kingdom': 'GBR', 'united states': 'USA', 'venezuela': 'VEN', 'british virgin islands': 'VGB', 'us virgin islands': 'VIR', 'vatican city': 'VAT', 'palestinian occupied territories': 'PSE', 'saint-barthélémy': 'BLM', 'saint-martin': 'MAF', 'vietnam': 'VNM', 'the united states': 'USA', 'the isle of man': 'IMN', 'moldova': 'MDA', 'democratic republic of the congo': 'COD', 'the central african republic': 'CAF', 'bangeladesh': 'BGD'};
+    var out = inputCountry;
+    if(predefined[inputCountry]){
+        out = predefined[inputCountry];
+        return out;
+    }
+    if(inputCountry.length == 3){
+        return out;
+    }else if(inputCountry.length == 2){
+        countries.listOfCountries.forEach((row)=>{
+            if(row['alpha-2'].toLowerCase() == inputCountry){
+                out = row['alpha-3'];
+                return out;
+            }
+        });
+    }else{
+        countries.listOfCountries.forEach((row)=>{
+            if(row['name'].toLowerCase() == inputCountry){
+                out = row['alpha-3'];
+                return out;
+            }
+        });
+    }
+    return out;
+}
+var fs = require ('fs');
+var _ = require("lodash");
+var input = fs.readFileSync('metadata.json','utf8');
+var currentObj = JSON.parse(input);
+var prefixes = '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> . @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> . @prefix edm: <http://www.europeana.eu/schemas/edm/> . @prefix foaf: <http://xmlns.com/foaf/0.1/> . @prefix owl: <http://www.w3.org/2002/07/owl#> . @prefix xsd: <http://www.w3.org/2001/XMLSchema#> . @prefix geoname: <http://www.geonames.org/ontology#> .  @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . @prefix skos: <http://www.w3.org/2004/02/skos/core#> . @prefix dcterms: <http://purl.org/dc/terms/> . @prefix geoV: <http://geo.risis.eu/vocabulary/osm/> . @prefix geoR: <http://geo.risis.eu/osm/> . @prefix geoC: <http://geo.risis.eu/osm/country/> . @prefix edm: <http://www.europeana.eu/schemas/edm/> @prefix dbpo: <http://dbpedia.org/ontology/> .';
+console.log(prefixes);
+//var tmp = [];
+var output = '';
+_.forEach(currentObj.rows, function(node, i) {
+    var iso3 = convertInputToISO3(node.country);
+    output =  'geoC:' + iso3 + ' a dbpo:Country ;';
+    for(var i=1;i<=11;i++){
+        output = output + ' geoV:level'+i+' """'+node['level'+i]+'""" ;';
+    }
+    output = output + ' geoV:ISO "'+iso3+'" .';
+    console.log(output);
+});
