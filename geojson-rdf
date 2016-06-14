@@ -150,11 +150,11 @@ function processor(node) {
             if(node.properties['note']){
                 output =  output + 'geoV:note """' + node.properties['note']+ '""" ; ';
             }
-            if(node.properties['population']){
+            if(node.properties['population']{
                 output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
             }
             if(node.properties['website']){
-                output =  output + 'foaf:page <' + node.properties['website']+ '> ; ';
+                output =  output + 'foaf:page <' + node.properties['website'].trim()+ '> ; ';
             }
             //console.log(node.properties.CODE_of_fu);
             //console.log(node.properties.CLASS);
