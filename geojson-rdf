@@ -150,7 +150,7 @@ function processor(node) {
             if(node.properties['note']){
                 output =  output + 'geoV:note """' + node.properties['note']+ '""" ; ';
             }
-            if(node.properties['population']{
+            if(node.properties['population']){
                 output =  output + 'geoV:population "' + node.properties['population']+ '"^^xsd:integer ; ';
             }
             if(node.properties['website']){
