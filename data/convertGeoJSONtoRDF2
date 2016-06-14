@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Converts OSM GeoJSON shape files to RDF per Country
+
+#create geojson directory if not exist
+mkdir -p rdf2
+
+#source folder
+source="../samples/the-netherlands"
+#destination folder
+dest="./rdf2"
+#country
+country="NLD"
+
+for f in "$source"/*.geojson; do
+  filename=$(basename "$f")
+  extension="${filename##*.}"
+  echo " converting \"$f\" to RDF...";
+
+  ../geojson-rdf "$country" "$f" > "$dest/$filename.ttl"
+
+  echo " done... RDF available at $dest/$filename.ttl";
+done

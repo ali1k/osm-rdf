@@ -45,7 +45,7 @@ convertInputToISO3 = function() {
     }
 
     if(inputCountry.length == 3){
-        return out;
+        return out.toUpperCase();
     }else if(inputCountry.length == 2){
         countries.listOfCountries.forEach((row)=>{
             if(row['alpha-2'].toLowerCase() == inputCountry){
@@ -72,9 +72,14 @@ var getStream = function (source) {
 function processor(node) {
         var pType = node.geometry.type;
         //ignore all the other details
-        if(pType === 'Polygon' || pType === 'MultiPolygon'){
+        if((pType === 'Polygon' || pType === 'MultiPolygon') && (node.id || node.properties.id)){
             //console.log(counter + ':');
-            output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
+            if(node.id){
+                output =  'geoR:relation_' + node.id + ' a geoV:AdministrativeArea ; ';
+            }else if(node.properties.id) {
+                output =  'geoR:' + node.properties.id.replace('/','_') + ' a geoV:AdministrativeArea ; ';
+            }
+
             //if we already have the country in data, we use that one instead of the one inserted by user
             if(node.properties['ISO3166-1:alpha3']){
                 output =  output + 'geoV:ISO "' + node.properties['ISO3166-1:alpha3']+ '" ; ';
