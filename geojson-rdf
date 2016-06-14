@@ -121,6 +121,9 @@ function processor(node) {
             if(node.properties.timestamp){
                 output =  output + 'geoV:timestamp "' + node.properties.timestamp+ '" ; ';
             }
+            if(node.properties.start_date){
+                output =  output + 'geoV:startDate "' + node.properties.start_date+ '" ; ';
+            }
             if(node.properties.authoritative){
                 output =  output + 'geoV:isAuthoritative "' + node.properties.authoritative+ '" ; ';
             }
