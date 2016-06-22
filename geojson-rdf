@@ -205,11 +205,12 @@ function die(message) {
 }
 function wikiToDB(str) {
     var tmp = str.split(':');
+    var tmp2 = tmp[1].split(' ').join('_');
     var out = '';
     if(tmp.length < 2 || tmp[0]== 'en'){
-        out = 'http://dbpedia.org/resource/' + encodeURIComponent(tmp[1]);
+        out = 'http://dbpedia.org/resource/' + encodeURIComponent(tmp2);
     }else{
-        out = 'http://'+tmp[0]+'.dbpedia.org/resource/' + encodeURIComponent(tmp[1]);
+        out = 'http://'+tmp[0]+'.dbpedia.org/resource/' + encodeURIComponent(tmp2);
     }
     return out;
 }
